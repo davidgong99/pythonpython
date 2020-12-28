@@ -54,7 +54,9 @@ class Game:
             print("|",end="\n")
             
         print("+"+"-"*(len(board[0]))+"+")
+        return 0
         
         
-        
+    def isOver(self):
+        return not self.snake.isAlive()
     

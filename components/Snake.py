@@ -43,15 +43,21 @@ class Snake:
     # body: list
     # direction: string
     def __init__(self, body, direction):
+    
+        # body
         if not isinstance(body, list):
             raise TypeError("Body must be of type list")
         else:
             self.body = body
         
+        # direction
         if direction not in directions:
             raise Exception("Direction does not exist")
         else:
             self.direction = direction
+        
+        # alive
+        self.alive = True
     
     
     # Moves snake in a given direction
@@ -93,3 +99,6 @@ class Snake:
     # Returns position of snake's head
     def head(self):
         return self.body[0]
+    
+    def isAlive(self):
+        return self.alive

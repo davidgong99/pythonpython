@@ -28,6 +28,12 @@ directions = {
     "DIAGONALLY_DOWN_RIGHT": (1,-1),
 }
 
+bodyParts = {
+    "HEAD": 1,
+    "BODY": 2,
+    "TAIL": 3,
+}
+
 
 class Snake:
     

@@ -1,15 +1,18 @@
+from Snake import *
+
 # All coordinates in format [w,h]
 
 class Game:
-    # def newBoard(self,width,height):
-    #     return [[None] * height] * width
     
     def __init__(self, width, height):
         self.height = height
         self.width = width
         self.board = [[None] * width] * height
+        self.snake = Snake([[0,0],[0,1],[0,2],[1,2]],"RIGHT")
     
     
+    # Render and print current board to console
+    # TODO: render snake
     def render(self):
         print("Height = " +str(self.height))
         print("Width = " + str(self.width))

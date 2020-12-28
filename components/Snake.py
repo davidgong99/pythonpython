@@ -32,16 +32,27 @@ directions = {
 class Snake:
     
     # Create snake with initial body and direction
+    # Snake body goes from [tail, ..., head]
+    #
+    # body: list
+    # direction: string
     def __init__(self, body, direction):
         if not isinstance(body, list):
             raise TypeError("Body must be of type list")
-        self.body = body
-        self.direction = direction
+        else:
+            self.body = body
+        
+        if direction not in directions:
+            raise Exception("Direction does not exist")
+        else:
+            self.direction = direction
     
     
     # Moves snake in a given direction
     # Returns 0 on success
     # Returns -1 on error (i.e. if invalid direction)
+    #
+    # dir: string
     def take_step(self, dir):
         try:
             self.set_direction(dir)
@@ -56,19 +67,22 @@ class Snake:
         # print("new head = " + str(new_head))
         
         # insert new position at front of list
-        self.body.insert(0,new_head)
+        self.body.append(new_head)
         
         # remove tail
-        del self.body[-1]
+        del self.body[0]
         
         return 0
         
-    
+    # Set snake's current direction
+    #
+    # new_direction: string
     def set_direction(self, new_direction):
         if new_direction in directions:
             self.direction = new_direction
         else:
             raise Exception("Invalid direction")
+        return 0
             
     # Returns position of snake's head
     def head(self):

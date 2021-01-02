@@ -17,14 +17,14 @@ class Game:
         self.width = width
         self.height = height
         self.board = [0 * width] * height
-        self.snake = Snake([[0,0],[1,0],[2,0],[2,1],[2,2]],"RIGHT")
+        self.snake = Snake([[2,2]],"RIGHT")
         self.apple = (3,3)
         self.score = 0
         self.maxScore = self.height * self.width - self.snake.length()
     
     # Returns matrix with snake added to board
     def board_matrix(self):
-        print("printing boar matrix =============")
+        # print("printing boar matrix =============")
         
         board = [ [None for i in range(self.width) ] for j in range(self.height)]
         
@@ -32,7 +32,6 @@ class Game:
         
         head = (0,0)
         for section in s.body:
-            print("displaying section: ", section)
             board[len(board) - section[1] - 1][section[0]] = pieces["BODY"]
             # board[section[1]][section[0]] = pieces["BODY"]
             head = section
@@ -50,12 +49,7 @@ class Game:
     # Render and print current board to console
     def render(self):
         print("**************\n* Score = ",self.score,"*\n**************")
-    
-    
-        print("Height = " +str(self.height))
-        print("Width = " + str(self.width))
-        
-        
+
         board = self.board_matrix()
         print("+"+"-"*(len(board[0]))+"+")
         for row in board:

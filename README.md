@@ -1,5 +1,8 @@
 # pythonpython
 
+## Starting a game
+Run `python main.py <width> <height>`
+
 ## Convention
 
 Coordinates will be in the format (x,y)

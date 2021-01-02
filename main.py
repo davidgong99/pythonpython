@@ -1,7 +1,19 @@
 from components.Game import Game
 from components.Apple import Apple
+import sys
 
-g = Game(5,4)
+if len(sys.argv) != 3:
+    print("Usage: python main.py <width> <height>")
+    exit()
+
+try:
+    width = int(sys.argv[1])
+    height = int(sys.argv[2])
+except Exception as e:
+    print("Exception: ",e)
+
+
+g = Game(width, height)
 
 while True:
     g.render()
@@ -13,16 +25,16 @@ while True:
         print("Exiting")
         break
     elif inputKey == "w": # up
-        print("UP")
+        # print("UP")
         ret = g.move("UP")
     elif inputKey == "a": # left
-        print("LEFT")
+        # print("LEFT")
         ret = g.move("LEFT")
     elif inputKey == "s": # down
-        print("DOWN")
+        # print("DOWN")
         ret = g.move("DOWN")
     elif inputKey == "d": # right
-        print("RIGHT")
+        # print("RIGHT")
         ret = g.move("RIGHT")
     else: # invalid key
         print("Invalid key")

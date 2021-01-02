@@ -32,6 +32,7 @@ class Game:
         
         head = (0,0)
         for section in s.body:
+            print("displaying section: ", section)
             board[len(board) - section[1] - 1][section[0]] = pieces["BODY"]
             # board[section[1]][section[0]] = pieces["BODY"]
             head = section
@@ -100,9 +101,8 @@ class Game:
     # direction: string
     def move(self, direction):
         # move snake
-        ret = self.snake.take_step(direction)
-        
-        
+        if self.snake.take_step(direction) == -1:
+            return -1 # invalid key
     
         # if snake moved into apple, generate new one
         if self.snake.head() == self.apple:
@@ -110,11 +110,13 @@ class Game:
             self.incrementScore()
             self.generateApple()
     
-    
         if self.score == self.maxScore:
-            return 2
+            return 2 # congratulations
             
-        return ret
+        if self.isOver():
+            return -2 # game over
+            
+        return 0
             
     # Generates a random coordinate for the apple
     # Store in self.apple as a tuple (appleX, appleY)

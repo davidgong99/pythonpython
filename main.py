@@ -3,7 +3,7 @@ from components.Apple import Apple
 
 g = Game(5,4)
 
-while not g.isOver():
+while True:
     g.render()
     inputKey = input("Enter move (w,a,s,d,x): ")
 
@@ -28,15 +28,16 @@ while not g.isOver():
         print("Invalid key")
         
     if ret == -1:
-        # print("Invalid key")
         print("Invalid key")
         break
     if ret == -2:
         print("Game over")
         break
     if ret == 2:
+        g.render()
         print("Congratulations!")
+        
         break
 
-g.render()
+# g.render()
 print("Final score = ",g.score)

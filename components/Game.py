@@ -19,6 +19,7 @@ class Game:
         self.board = [0 * width] * height
         self.snake = Snake([[0,0],[1,0],[2,0],[2,1],[2,2]],"RIGHT")
         self.apple = (3,3)
+        self.score = 0
     
     # Returns matrix with snake added to board
     def board_matrix(self):
@@ -46,6 +47,9 @@ class Game:
         
     # Render and print current board to console
     def render(self):
+        print("**************\n* Score = ",self.score,"*\n**************")
+    
+    
         print("Height = " +str(self.height))
         print("Width = " + str(self.width))
         
@@ -94,13 +98,14 @@ class Game:
     #
     # direction: string
     def move(self, direction):
+        # move snake
         ret = self.snake.take_step(direction)
     
-        print(self.snake.head())
-        print(self.apple)
         # if snake moved into apple, generate new one
         if self.snake.head() == self.apple:
             self.generateApple()
+            self.snake.extend()
+            self.incrementScore()
     
     
         return ret
@@ -121,6 +126,10 @@ class Game:
                 appleFound = True
             
     
+    # Checks if a given location on the game board is occupied
     def spaceOccupied(self, x, y):
         return self.snake.occupies(x,y)
         
+    def incrementScore(self):
+        self.score += 1
+    

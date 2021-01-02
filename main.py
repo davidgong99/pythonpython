@@ -30,4 +30,4 @@ while not g.isOver():
     if ret == -1:
         print("Invalid key")
 
-print("Game over.")
+print("Game over. Final score = ",g.score)

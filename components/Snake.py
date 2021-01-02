@@ -50,6 +50,9 @@ class Snake:
             raise Exception("Direction does not exist")
         else:
             self.direction = direction    
+            
+        # last position of tail
+        self.lastTail = None
     
     # Moves snake in a given direction
     # Returns 0 on success
@@ -67,6 +70,9 @@ class Snake:
         # create tuple for new position of head
             # new_head = (old_headX + directionX, old_headY + directionY)
         new_head = (self.head()[0] + direction[0], self.head()[1] + direction[1])
+        
+        # save tail
+        self.lastTail = self.body[0]
         
         # remove tail
         del self.body[0]
@@ -111,3 +117,10 @@ class Snake:
                 return 1
                 
         return 0
+
+    # Extend snake's tail by 1 (regrow where tail last was)
+    def extend(self):
+        self.body.insert(0, self.lastTail)
+    
+    def length(self):
+        return len(self.body)

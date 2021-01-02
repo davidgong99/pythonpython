@@ -20,6 +20,7 @@ class Game:
         self.snake = Snake([[0,0],[1,0],[2,0],[2,1],[2,2]],"RIGHT")
         self.apple = (3,3)
         self.score = 0
+        self.maxScore = self.height * self.width - self.snake.length()
     
     # Returns matrix with snake added to board
     def board_matrix(self):
@@ -100,21 +101,27 @@ class Game:
     def move(self, direction):
         # move snake
         ret = self.snake.take_step(direction)
+        
+        
     
         # if snake moved into apple, generate new one
         if self.snake.head() == self.apple:
-            self.generateApple()
             self.snake.extend()
             self.incrementScore()
+            self.generateApple()
     
     
+        if self.score == self.maxScore:
+            return 2
+            
         return ret
             
     # Generates a random coordinate for the apple
     # Store in self.apple as a tuple (appleX, appleY)
     # The apple will not be in a space occupied by the snake
     def generateApple(self):
-    
+        if self.score == self.maxScore:
+            return 0
         appleFound = False
         
         while (not appleFound):

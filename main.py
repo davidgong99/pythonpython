@@ -28,6 +28,15 @@ while not g.isOver():
         print("Invalid key")
         
     if ret == -1:
+        # print("Invalid key")
         print("Invalid key")
+        break
+    if ret == -2:
+        print("Game over")
+        break
+    if ret == 2:
+        print("Congratulations!")
+        break
 
-print("Game over. Final score = ",g.score)
+g.render()
+print("Final score = ",g.score)

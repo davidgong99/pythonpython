@@ -72,18 +72,26 @@ class Snake:
         except Exception as e:
             print("Exception: ",e)
             return -1
+            
+        # lastIndex = len(self.body) - 1
     
         # create tuple for new position of head
-        new_head = (self.body[0][0] + direction[0], self.body[0][1] + direction[1])
+            # new_head = (old_headX + directionX, old_headY + directionY)
+        new_head = (self.head()[0] + direction[0], self.head()[1] + direction[1])
         # print("head = " + str(self.body[0]))
         # print("new head = " + str(new_head))
-        
-        # insert new position at front of list
-        self.body.append(new_head)
+        print("prev body = ",self.body)
+        print("new head = ",new_head)
+        print("deleting ", self.body[0])
         
         # remove tail
         del self.body[0]
         
+        # insert new head
+        self.body.append(new_head)
+        
+        print("==== new body = ",self.body)
+
         return 0
         
     # Set snake's current direction
@@ -98,7 +106,15 @@ class Snake:
             
     # Returns position of snake's head
     def head(self):
-        return self.body[0]
+        return self.body[len(self.body) - 1]
     
-    def isAlive(self):
-        return self.alive
+    # Checks if head has collided with any part of its body
+    def hasCollision(self):
+        head = self.head()
+        
+        for part in self.body[:-1]:
+            if head[0] == part[0] and head[1] == part[1]:
+                return 1
+    
+        return 0
+        # return self.alive

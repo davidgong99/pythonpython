@@ -9,7 +9,7 @@ class Game:
         self.height = height
         self.board = [0 * width] * height
         # self.snake = Snake([[0,0],[0,1],[0,2],[1,2]],"RIGHT")
-        self.snake = Snake([[0,0],[1,0],[2,0]],"RIGHT")
+        self.snake = Snake([[0,0],[1,0],[2,0],[2,1],[2,2]],"RIGHT")
     
     # Returns matrix with snake added to board
     def board_matrix(self):
@@ -22,10 +22,12 @@ class Game:
         head = (0,0)
         for section in s.body:
             board[len(board) - section[1] - 1][section[0]] = bodyParts["BODY"]
+            # board[section[1]][section[0]] = bodyParts["BODY"]
             head = section
         
         # h,w
         board[len(board) - head[1] - 1][head[0]] = bodyParts["HEAD"]
+        # board[head[1]][head[0]] = bodyParts["HEAD"]
         
         return board
         
@@ -58,5 +60,22 @@ class Game:
         
         
     def isOver(self):
-        return not self.snake.isAlive()
+    
+        # define head variables
+        head = self.snake.head()
+        headX = head[0]
+        headY = head[1]
+    
+        # check if head is within bounds
+        if (headX < 0 or headX >= self.width or headY < 0 or headY >= self.height):
+            return 1
+    
+        # check if head hit any part of body
+        return self.snake.hasCollision()
+    
+    
+    def move(self, direction):
+        return self.snake.take_step(direction)
+            
+            
     

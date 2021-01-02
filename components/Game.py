@@ -1,4 +1,13 @@
 from components.Snake import *
+import random
+
+
+pieces = {
+    "HEAD": 1,
+    "BODY": 2,
+    "TAIL": 3,
+    "APPLE": 4,
+}
 
 # All coordinates in format [x,y]
 
@@ -9,6 +18,7 @@ class Game:
         self.height = height
         self.board = [0 * width] * height
         self.snake = Snake([[0,0],[1,0],[2,0],[2,1],[2,2]],"RIGHT")
+        self.apple = (3,3)
     
     # Returns matrix with snake added to board
     def board_matrix(self):
@@ -20,13 +30,16 @@ class Game:
         
         head = (0,0)
         for section in s.body:
-            board[len(board) - section[1] - 1][section[0]] = bodyParts["BODY"]
-            # board[section[1]][section[0]] = bodyParts["BODY"]
+            board[len(board) - section[1] - 1][section[0]] = pieces["BODY"]
+            # board[section[1]][section[0]] = pieces["BODY"]
             head = section
         
         # h,w
-        board[len(board) - head[1] - 1][head[0]] = bodyParts["HEAD"]
-        # board[head[1]][head[0]] = bodyParts["HEAD"]
+        board[len(board) - head[1] - 1][head[0]] = pieces["HEAD"]
+        # board[head[1]][head[0]] = pieces["HEAD"]
+        
+        # insert apple
+        board[len(board) - self.apple[1] - 1][self.apple[0]] = pieces["APPLE"]
         
         return board
         
@@ -45,10 +58,12 @@ class Game:
                 if (val == None):
                     print(" ",end="")
                 else:
-                    if val == bodyParts["BODY"]:
+                    if val == pieces["BODY"]:
                         print("O",end="")
-                    elif val == bodyParts["HEAD"]:
+                    elif val == pieces["HEAD"]:
                         print("X",end="")
+                    elif val == pieces["APPLE"]:
+                        print("A",end="")
                     else:
                         print(" ",end="")
 
@@ -79,7 +94,33 @@ class Game:
     #
     # direction: string
     def move(self, direction):
-        return self.snake.take_step(direction)
+        ret = self.snake.take_step(direction)
+    
+        print(self.snake.head())
+        print(self.apple)
+        # if snake moved into apple, generate new one
+        if self.snake.head() == self.apple:
+            self.generateApple()
+    
+    
+        return ret
             
+    # Generates a random coordinate for the apple
+    # Store in self.apple as a tuple (appleX, appleY)
+    # The apple will not be in a space occupied by the snake
+    def generateApple(self):
+    
+        appleFound = False
+        
+        while (not appleFound):
+            appleX = random.randrange(self.width)
+            appleY = random.randrange(self.height)
+            
+            if not self.spaceOccupied(appleX, appleY):
+                self.apple = (appleX, appleY)
+                appleFound = True
             
     
+    def spaceOccupied(self, x, y):
+        return self.snake.occupies(x,y)
+        

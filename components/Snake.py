@@ -28,11 +28,6 @@ directions = {
     "DIAGONALLY_DOWN_RIGHT": (1,-1),
 }
 
-bodyParts = {
-    "HEAD": 1,
-    "BODY": 2,
-    "TAIL": 3,
-}
 
 
 class Snake:
@@ -104,4 +99,15 @@ class Snake:
             if head[0] == part[0] and head[1] == part[1]:
                 return 1
     
+        return 0
+    
+    # Checks if snake occupies a given location (x,y)
+    # Returns
+    #   1 if snake occupies the space
+    #   0 otherwise
+    def occupies(self, x, y):
+        for part in self.body:
+            if part[0] == x and part[1] == y:
+                return 1
+                
         return 0

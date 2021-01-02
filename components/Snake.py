@@ -54,11 +54,7 @@ class Snake:
         if direction not in directions:
             raise Exception("Direction does not exist")
         else:
-            self.direction = direction
-        
-        # alive
-        self.alive = True
-    
+            self.direction = direction    
     
     # Moves snake in a given direction
     # Returns 0 on success
@@ -72,17 +68,10 @@ class Snake:
         except Exception as e:
             print("Exception: ",e)
             return -1
-            
-        # lastIndex = len(self.body) - 1
-    
+                
         # create tuple for new position of head
             # new_head = (old_headX + directionX, old_headY + directionY)
         new_head = (self.head()[0] + direction[0], self.head()[1] + direction[1])
-        # print("head = " + str(self.body[0]))
-        # print("new head = " + str(new_head))
-        print("prev body = ",self.body)
-        print("new head = ",new_head)
-        print("deleting ", self.body[0])
         
         # remove tail
         del self.body[0]
@@ -90,7 +79,6 @@ class Snake:
         # insert new head
         self.body.append(new_head)
         
-        print("==== new body = ",self.body)
 
         return 0
         
@@ -117,4 +105,3 @@ class Snake:
                 return 1
     
         return 0
-        # return self.alive

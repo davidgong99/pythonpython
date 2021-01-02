@@ -1,21 +1,12 @@
 from components.Game import Game
 from components.Apple import Apple
 
-
-
 g = Game(5,4)
-
-# g.render()
-
 
 while not g.isOver():
     g.render()
     inputKey = input("Enter move (w,a,s,d,x): ")
-    # print(inputKey)
-    
-    # TODO: check if valid key, and handle input
-    # only valid keys are:
-    #   w,a,s,d,x
+
     ret = 0
     
     if (inputKey == "x"): # exit

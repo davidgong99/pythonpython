@@ -8,7 +8,6 @@ class Game:
         self.width = width
         self.height = height
         self.board = [0 * width] * height
-        # self.snake = Snake([[0,0],[0,1],[0,2],[1,2]],"RIGHT")
         self.snake = Snake([[0,0],[1,0],[2,0],[2,1],[2,2]],"RIGHT")
     
     # Returns matrix with snake added to board
@@ -58,7 +57,10 @@ class Game:
         print("+"+"-"*(len(board[0]))+"+")
         return 0
         
-        
+    # Check if game is over
+    # Returns
+    #   1 if game is over
+    #   0 otherwise
     def isOver(self):
     
         # define head variables
@@ -73,7 +75,9 @@ class Game:
         # check if head hit any part of body
         return self.snake.hasCollision()
     
-    
+    # Move snake in given direction
+    #
+    # direction: string
     def move(self, direction):
         return self.snake.take_step(direction)
             
